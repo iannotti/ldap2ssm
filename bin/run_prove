@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+require 'common/constants'
+require 'parse/write_xml_out'
+require 'utils/senddata'
+require 'time'
+require 'fileutils'
+=begin
+
+puts SRecords.SubjectIdentity
+h = {
+	:one => 1,
+	:two => 2
+	}
+	h[:one]
+	h[:three] = 3
+l = {
+	:four => 4,
+	:five => 5
+	}
+	m = {
+	:inner => h,
+	:pippo => l
+	}
+	
+hRet = UtilsHash.new
+aRet = hRet.to_array(m)
+
+aRet.each do |k|
+	puts "#{k}"
+end	
+
+myxml = WriteXmlFile.new
+myxml.writeFile(1,"pippo")
+
+
+time = Time.now.to_i
+timeHex = time.to_s(16)
+  def random_string(length=8)
+  chars = 'abcdef0123456789'
+  rnd_str = ''
+  length.times { rnd_str << chars[rand(chars.size)] }
+  rnd_str
+  end
+stri =  random_string(6).hex
+puts random_string(8)
+puts stri.to_s(16)
+puts timeHex
+
+if !Dir.exists?("ddd")
+	FileUtils.mkpath "ddd"
+	end
+file = File.new("ddd/pippo.file","w+")
+file.close
+=end
+strP="/log/prova"
+if strP[0] == File::SEPARATOR
+puts "pppppppp " +strP[0]
+end
+
+spl=strP.slice(1,strP.size).split(File::SEPARATOR)
+puts spl

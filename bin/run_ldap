@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'net/ldap'
+require 'logger'
+require 'common/globalvars'
+require 'search/ldap_search'
+require 'utils/general'
+
+conn = Search::ManageSearch.new
+=begin conn.checkConnection
+conn.getGeneralSiteInfo
+conn.getSEInfo
+puts conn.recordData
+=end
+ 
+conn.getGlueOneInfo
+ 
