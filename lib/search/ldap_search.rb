@@ -1,6 +1,6 @@
 require "rubygems"
 require "net/ldap"
-require "ruby_ldap/version"
+require "ldap2ssm/version"
 require "common/constants"
 require "data/record"
 require "utils/general"
