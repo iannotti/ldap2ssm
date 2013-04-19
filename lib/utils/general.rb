@@ -58,12 +58,42 @@ class GeneralUtils
            end
            properties
      end
-    def GeneralUtils.RandomExa(length=8)
-        chars = 'abcdef0123456789'
+     #
+     # get the data from a file removing all the lines and the strings after # character
+     #
+     def GeneralUtils.LoadCleanFileData(fileName)
+       data = Array.new
+       iLines = 0
+       if File.exist?(fileName)
+        File.open(fileName, 'r') do |lines|
+          lines.read.each_line do |line|
+            line.strip!
+            if (line[0] != ?# )
+              i = line.index('#')
+              if (i)
+                data << line[0..i - 1].strip
+              else
+                data << line
+              end
+            end
+          end
+         end
+       else
+        msg = "File #{filename} not found !!! "+
+              "you have to provide it to run the program!!! "
+        $LOG.error(msg)
+        raise Excepion=>msg
+      end
+      data   
+     end
+       
+     
+    def GeneralUtils.RandomExa(length, chars = 'abcdef0123456789')
         rnd_str = ''
         length.times { rnd_str << chars[rand(chars.size)] }
         rnd_str
     end
+
    def GeneralUtils.CheckDir(dirName)
     allSubDirs = nil
     subDirs = ""
@@ -102,8 +132,12 @@ class GeneralUtils
           end
         
           file.close
-        else
-          startTime = Time.now.utc.iso8601
+        else 
+          if File.exist?(ProgramArgs.GenericFileName)
+           startTime = StartEndTimeUtils.GetStartTime(ProgramArgs.GenericFileName)
+          else
+            startTime = Time.now.utc.iso8601
+          end
         end
         startTime
       end
@@ -111,7 +145,14 @@ class GeneralUtils
       def StartEndTimeUtils.WriteNextStartTime(voName,value)
         fileName = StartEndTimeUtils.MakeFileName(voName)
         $LOG.info("Output Time File: "+fileName)
-        file = File.new(fileName,"w+")
+        
+        begin
+          file = File.new(fileName,"w+")
+        rescue
+          $LOG.warn("Cannot open file: "+fileName+" creating a generic one ")
+          fileName = StartEndTimeUtils.MakeFileName(ProgramArgs.GenericFileName)
+          file = File.new(fileName,"w+")
+        end
         file.puts(value)
         file.close
       end

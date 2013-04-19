@@ -29,6 +29,9 @@ class WriteXmlFile
           ur.tag!(SRecords.SubjectIdentity) do |si|
             si.tag!(SRecords.Group, record.group)
           end
+          if record.storageShare != nil
+            ur.tag!(SRecords.StorageShare, record.storageShare)
+          end
           ur.tag!(SRecords.StorageMedia, record.storageMedia)
           ur.tag!(SRecords.StorageClass, record.storageClass)
           ur.tag!(SRecords.DirectoryPath,record.directoryPath)
@@ -68,7 +71,7 @@ class WriteXmlFile
     time = Time.now.to_i
     timeHex = time.to_s(16)
     random_string = GeneralUtils.RandomExa(6)
-    filename = timeHex + GeneralUtils.RandomExa(6)
+    filename = timeHex + random_string
     filename
 
   end

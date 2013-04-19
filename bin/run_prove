@@ -51,7 +51,7 @@ if !Dir.exists?("ddd")
 	end
 file = File.new("ddd/pippo.file","w+")
 file.close
-=end
+
 strP="/log/prova"
 if strP[0] == File::SEPARATOR
 puts "pppppppp " +strP[0]
@@ -59,3 +59,21 @@ end
 
 spl=strP.slice(1,strP.size).split(File::SEPARATOR)
 puts spl
+=end
+myhash = {"a" =>1, "b" =>2, "c" =>3, "d" =>4, "e" =>5, "f" =>6}
+keyset = Array.new
+i = 0
+myhash.each do |key,values|
+	keyset << key
+	break if i >=3
+	i += 1
+			
+end
+remainder = {}
+
+keyset.each {|i|  remainder[i] = myhash.delete(i)}
+
+
+puts remainder
+puts myhash
+

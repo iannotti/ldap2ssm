@@ -14,5 +14,5 @@ conn.getSEInfo
 puts conn.recordData
 =end
  
-conn.getGlueOneInfo
+conn.queries
  

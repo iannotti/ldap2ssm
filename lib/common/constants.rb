@@ -69,6 +69,10 @@ require "rubygems"
   # Glue 1.3 --> GlueSiteUniqueID
   # Glue 2.0 --> StorageShareAdminDomain
   #
+  # <sr:StorageShare>pool-003</sr:StorageShare>
+  # Glue 1.3 --> GlueVOInfoTag
+  # Glue 2.0 --> StorageShareName
+  #
   
   
     @@Separator = ":"
@@ -79,6 +83,7 @@ require "rubygems"
     @@RI_createtime_key = @@Prefix + @@Separator + "createTime"                        # sr:createTime
     @@Recordid_key = @@Prefix + @@Separator + "recordId"                               # sr:recordId
     @@Storagesystem_key = @@Prefix + @@Separator + "StorageSystem"                     # sr:StorageSystem
+    @@Storageshare_key = @@Prefix + @@Separator + "StorageShare"                       # sr:StorageShare
     @@Storagemedia_key = @@Prefix + @@Separator + "StorageMedia"                       # sr:StorageMedia
     @@Storageclass_key = @@Prefix + @@Separator + "StorageClass"                       # sr:StorageClass
     @@Filecount_key = @@Prefix + @@Separator + "FileCount"                             # sr:FileCount
@@ -117,8 +122,11 @@ require "rubygems"
       @@Storagemedia_key
     end
     def SRecords.StorageClass
-      @@Storageclass_key
-    end
+       @@Storageclass_key
+     end
+    def SRecords.StorageShare
+       @@Storageshare_key
+     end
     def SRecords.StorageClass
       @@Storageclass_key
     end
@@ -160,6 +168,7 @@ require "rubygems"
     @@GlueSEUniqueID = "GlueSEUniqueID"                     # to extract from the dn
     @@GlueVOInfoPath = "GlueVOInfoPath" 
     @@GlueSAType = "GlueSAType"
+    @@GlueVOInfoTag = "GlueVOInfoTag"
     # I neglect (for thr moment) the Nearline media !!! 
     @@GlueSAUsedOnlineSize = "GlueSAUsedOnlineSize"
     @@GlueSATotalOnlineSize = "GlueSATotalOnlineSize"
@@ -182,6 +191,9 @@ require "rubygems"
     end
     def GlueOneRecords.GlueVOInfoPath
       @@GlueVOInfoPath
+    end
+    def GlueOneRecords.GlueVOInfoTag
+      @@GlueVOInfoTag
     end
     def GlueOneRecords.GlueSAType
       @@GlueSAType
@@ -213,10 +225,11 @@ require "rubygems"
     
     class ProgramArgs
       
+      @@GenericFileName = "generic"
+      
       @@DataDir = "data"
       @@SequenceFile = @@DataDir + File::SEPARATOR + "sequence.dat"
       @@TimeFileName = "time.dat"
-      @@XmlFile = "fileXml.xml"
       @@MaxRecords = 1000
       @@ConversionFactor = 1024**3
       @@NameSpace = "http://eu-emi.eu/namespaces/2011/02/storagerecord"
@@ -232,21 +245,14 @@ require "rubygems"
       def ProgramArgs.DataDir
           @@DataDir
         end
-      def ProgramArgs.XmlFile
-          @@XmlFile
-        end
-      def ProgramArgs.MaxRecords
-        @@MaxRecords
-      end
       def ProgramArgs.NameSpace
         @@NameSpace
       end
       def ProgramArgs.ConversionFactor
         @@ConversionFactor
       end
-      
-      class Properties
-        
+      def ProgramArgs.GenericFileName
+        @@GenericFileName
       end
    end
     

@@ -13,6 +13,7 @@ require "utils/general"
     attr :directoryPath
     attr :group
     attr :startTime
+    attr :storageShare 
     attr :endTime
     attr :resourceCapacityUsed
     attr :resourceCapacityAllocated
@@ -20,8 +21,6 @@ require "utils/general"
     def initialize
       @site = nil
       @createTime = Time.now.utc.iso8601
-      id = GeneralUtils.GetIdFromSeq
-      @recordIdPostFix = "/sr/"+id.to_s 
       @recordId = nil                      #the recordIdPrefix contains the GlueSEUniqueId
       @storageSystem = nil
       @storageMedia = GlueOneRecords.StorageDisk
@@ -32,13 +31,14 @@ require "utils/general"
       @endTime = nil                              
       @resourceCapacityUsed = nil       
       @resourceCapacityAllocated = nil
+      @storageShare = nil
  
     end
     def site=(value)
       @site = value
     end
     def recordId=(value)
-      @recordId = value + @recordIdPostFix
+      @recordId = value + "/sr/"+generateId
     end
     def storageSystem=(value)
        @storageSystem = value
@@ -51,6 +51,9 @@ require "utils/general"
     end
     def directoryPath=(value)
       @directoryPath = value
+    end
+    def storageShare=(value)
+      @storageShare = value
     end
     def group=(value)
       @group = value
@@ -77,6 +80,7 @@ require "utils/general"
       @resourceCapacityUsed = nil
       @resourceCapacityAllocated = nil 
       @group = nil 
+      @storageShare = nil
       @storageClass=nil
       @startTime= nil 
       @endTime= nil 
@@ -94,10 +98,21 @@ require "utils/general"
         "StorageClass: #@storageClass \n" +
         "DirectoryPath: #@directoryPath \n"+
         "Group: #@group \n" +
+        "StorageShare: #@storageShare \n"+
         "StartTime: #@startTime \n" +
         "EndTime: #@endTime \n" +
         "ResourceCapacityUsed: #@resourceCapacityUsed \n"+
         "ResourceCapacityAllocated: #@resourceCapacityAllocated \n"
     end
+    private
+    def generateId
+        time = Time.now.to_i
+        timeHex = time.to_s(16)
+        id = nil
+        id = timeHex + GeneralUtils.RandomExa(4,'0123456789ABCDEFGHILMNOPQRSTUVXYZ')
+        id
+
+    end
+
   end
   
