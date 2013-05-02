@@ -15,7 +15,7 @@ require "rubygems"
   # </sr:StorageUsageRecords>
   # 
   # <sr:Site>ACME-University</sr:Site>
-  # Glue 1.3 => GlueSiteUniqueID
+  # Glue 1.3 => GlueSiteName
   # Glue 2.0 => StorageShareAdminDomain
   #
   # <sr:RecordIdentity                
@@ -23,11 +23,9 @@ require "rubygems"
   # sr:recordId="host.example.org/sr/87912469269276"/>
   #
   # <sr:StorageSystem>host.example.org</sr:StorageSystem>
-  # glue 1.3 --> GlueSAUniqueID
+  # glue 1.3 --> GlueSEUniqueID
   # glue 2.0 --> StorageShareID
   # 
-  #
-  # <sr:StorageShare>pool-003</sr:StorageShare>
   #
   # <sr:StorageMedia>disk</sr:StorageMedia>
   # Glue 1.3 --> disk if Online
@@ -65,12 +63,8 @@ require "rubygems"
   # <sr:ResourceCapacityAllocated>14624</sr:ResourceCapacityAllocated>
   # Glue 1.3 --> GlueSATotalOnlineSize or GlueSAFreeOnlineSize or GlueSAReservedOnlineSize
   #
-  # <sr:Site>ACME-University</sr:Site>
-  # Glue 1.3 --> GlueSiteUniqueID
-  # Glue 2.0 --> StorageShareAdminDomain
-  #
   # <sr:StorageShare>pool-003</sr:StorageShare>
-  # Glue 1.3 --> GlueVOInfoTag
+  # Glue 1.3 --> GlueSALocalID
   # Glue 2.0 --> StorageShareName
   #
   
@@ -161,14 +155,16 @@ require "rubygems"
   
   class GlueOneRecords
     
-    @@GlueSiteUniqueID = "GlueSiteUniqueID"
+    @@GlueSiteName = "GlueSiteName"
     @@GlueSAAccessControlBaseRule = "GlueSAAccessControlBaseRule"
     @@GlueSATotalNearlineSize = "GlueSATotalNearlineSize"   # to use to determine the the storage Media
     @@GlueSATotalOnlineSize = "GlueSATotalOnlineSize"       # to use to determine the the storage Media
     @@GlueSEUniqueID = "GlueSEUniqueID"                     # to extract from the dn
     @@GlueVOInfoPath = "GlueVOInfoPath" 
     @@GlueSAType = "GlueSAType"
+    #@TODO remove GlueVOInfoTag after check with Andrea C.
     @@GlueVOInfoTag = "GlueVOInfoTag"
+    @@GlueSALocalID = "GlueSALocalID"
     # I neglect (for thr moment) the Nearline media !!! 
     @@GlueSAUsedOnlineSize = "GlueSAUsedOnlineSize"
     @@GlueSATotalOnlineSize = "GlueSATotalOnlineSize"
@@ -195,6 +191,9 @@ require "rubygems"
     def GlueOneRecords.GlueVOInfoTag
       @@GlueVOInfoTag
     end
+    def GlueOneRecords.GlueSALocalID
+      @@GlueSALocalID
+    end
     def GlueOneRecords.GlueSAType
       @@GlueSAType
     end
@@ -211,8 +210,8 @@ require "rubygems"
        @@GlueSATotalNearlineSize
      end
 
-    def GlueOneRecords.GlueSiteUniqueID
-      @@GlueSiteUniqueID
+    def GlueOneRecords.GlueSiteName
+      @@GlueSiteName
     end
     def GlueOneRecords.StorageTape
         @@StorageTape

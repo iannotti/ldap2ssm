@@ -59,7 +59,6 @@ end
 
 spl=strP.slice(1,strP.size).split(File::SEPARATOR)
 puts spl
-=end
 myhash = {"a" =>1, "b" =>2, "c" =>3, "d" =>4, "e" =>5, "f" =>6}
 keyset = Array.new
 i = 0
@@ -77,3 +76,14 @@ keyset.each {|i|  remainder[i] = myhash.delete(i)}
 puts remainder
 puts myhash
 
+
+files =File.dirname(__FILE__).to_s
+rindex = files.rindex(File::SEPARATOR)
+substr = files.slice(0,rindex)
+	puts "........... "+substr
+=end
+str = "/stringa:di_prova=ancora"
+if str[0] == ?/
+	str = str.slice(1,str.size)
+	end
+puts str.split(/\/|:|_|=/)

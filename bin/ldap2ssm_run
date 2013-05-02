@@ -13,6 +13,6 @@ conn.getGeneralSiteInfo
 conn.getSEInfo
 puts conn.recordData
 =end
- 
+
 conn.queries
  

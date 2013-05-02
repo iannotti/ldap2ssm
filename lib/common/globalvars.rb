@@ -2,13 +2,20 @@ require "rubygems"
 require 'fileutils'
 require 'utils/general'
 
-conf_file = "conf/ldap2ssm.properties"
+currentDir =File.dirname(__FILE__).to_s + "/../../"
+
+$CONF_DIR = currentDir + "conf"
+
+conf_file = $CONF_DIR + File::SEPARATOR + "ldap2ssm.properties"
 properties = GeneralUtils.LoadProperties(conf_file)
 logfilename = properties["logfile"]
-$SITES_FILE = properties["sitelist_file"]
+
+$SITES_FILE =  $CONF_DIR + File::SEPARATOR + properties["sitelist_file"]
 $TOP_BDII = properties["top_bdii"]
 $MAX_FILERECORDS=properties["max_records_per_file"]
 $MAX_DIRFILES=properties["max_files_per_dir"]
+$INPUT_DATA_PATH=properties["input_data_path"]
+
   
 $OUTPUT_PATH = properties["output_path"]
 $LOG =  Logger.new(STDOUT)

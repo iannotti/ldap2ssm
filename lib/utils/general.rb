@@ -14,35 +14,13 @@ class GeneralUtils
     
   end
       
-    def GeneralUtils.GetIdFromSeq
-      GeneralUtils.CheckDir(ProgramArgs.DataDir)
-      if File.exist?(ProgramArgs.SequenceFile)
-        file = File.new(ProgramArgs.SequenceFile, "r+") 
-        seq = file.gets.to_i        
-        if seq.nil? 
-          seq = 0
-          $LOG.warn("The file #{ProgramArgs.SequenceFile} is empty! "+
-                                  "starting recordId from 1")
-        end
-        
-        seq += 1
-        $LOG.info("seq: #{seq}")
-        file.rewind
-        file.puts(seq)
-        file.close
-      else 
-        $LOG.warn("File #{ProgramArgs.SequenceFile} not found !!! "+
-          "starting recordId from 1")
-        file = File.new(ProgramArgs.SequenceFile, "w+")
-        seq = 0
-        file.puts(seq)
-        file.close
-      end  
-        seq 
-    end
-    
+     
     def GeneralUtils.LoadProperties(properties_filename)
         properties = {}
+          if !File.exist?(properties_filename)
+            $LOG.error("The file #{properties_filename} does'nt exist!! ")
+            return properties
+          end
            File.open(properties_filename, 'r') do |properties_file|
              properties_file.read.each_line do |line|
                line.strip!
@@ -79,10 +57,10 @@ class GeneralUtils
           end
          end
        else
-        msg = "File #{filename} not found !!! "+
+        msg = "File #{fileName} not found !!! "+
               "you have to provide it to run the program!!! "
         $LOG.error(msg)
-        raise Excepion=>msg
+        raise Exception, msg
       end
       data   
      end
@@ -115,51 +93,5 @@ class GeneralUtils
   end
 
  end
- #
- # 
- # 
- class StartEndTimeUtils
-      def StartEndTimeUtils.GetStartTime(voName)
-        fileName = StartEndTimeUtils.MakeFileName(voName)
-        $LOG.info("Time File: "+fileName)
-        if File.exist?(fileName) 
-          file = File.new(fileName,"r")
-        
-          startTime = file.gets.chomp
-        
-          if startTime.nil?
-            startTime = Time.now.utc.iso8601
-          end
-        
-          file.close
-        else 
-          if File.exist?(ProgramArgs.GenericFileName)
-           startTime = StartEndTimeUtils.GetStartTime(ProgramArgs.GenericFileName)
-          else
-            startTime = Time.now.utc.iso8601
-          end
-        end
-        startTime
-      end
-      
-      def StartEndTimeUtils.WriteNextStartTime(voName,value)
-        fileName = StartEndTimeUtils.MakeFileName(voName)
-        $LOG.info("Output Time File: "+fileName)
-        
-        begin
-          file = File.new(fileName,"w+")
-        rescue
-          $LOG.warn("Cannot open file: "+fileName+" creating a generic one ")
-          fileName = StartEndTimeUtils.MakeFileName(ProgramArgs.GenericFileName)
-          file = File.new(fileName,"w+")
-        end
-        file.puts(value)
-        file.close
-      end
-      
-      private
-      def StartEndTimeUtils.MakeFileName(voName)
-        fileName = ProgramArgs.DataDir+ File::SEPARATOR + voName +"_" +ProgramArgs.TimeFileName
-      end
- end  
+  
  
