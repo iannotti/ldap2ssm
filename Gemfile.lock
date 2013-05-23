@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby_ldap (0.0.1)
+    ldap2ssm (0.0.1)
       net-ldap
 
 GEM
@@ -12,5 +12,3 @@ GEM
 PLATFORMS
   ruby
 
-DEPENDENCIES
-  ldap2ssm!

@@ -1,5 +1,6 @@
 require "rubygems"
 require 'fileutils'
+require 'logger'
 require 'utils/general'
 
 currentDir =File.dirname(__FILE__).to_s + "/../../"
@@ -9,6 +10,7 @@ $CONF_DIR = currentDir + "conf"
 conf_file = $CONF_DIR + File::SEPARATOR + "ldap2ssm.properties"
 properties = GeneralUtils.LoadProperties(conf_file)
 logfilename = properties["logfile"]
+localOutputPath = properties["local_output_path"]
 
 $SITES_FILE =  $CONF_DIR + File::SEPARATOR + properties["sitelist_file"]
 $TOP_BDII = properties["top_bdii"]
@@ -18,10 +20,17 @@ $INPUT_DATA_PATH=properties["input_data_path"]
 
   
 $OUTPUT_PATH = properties["output_path"]
+if ! localOutputPath.nil?
+  $LOCAL_OUTPUT_PATH = localOutputPath
+end
+
 $LOG =  Logger.new(STDOUT)
 if logfilename.nil?
   $LOG =  Logger.new(STDOUT)
 else
+  
+
+
   
   
   if !File.exist?(logfilename)
@@ -44,4 +53,4 @@ end
 if $MAX_DIRFILES.nil?
   $MAX_DIRFILES = 100
 end
-
+$EXIT_FATAL= 111

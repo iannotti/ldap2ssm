@@ -93,6 +93,9 @@ require "rubygems"
     def SRecords.Prefix
       @@Prefix
     end
+    def SRecords.FullPrefix
+      @@Prefix+@@Separator
+    end
     def SRecords.StorageUsageRecords
       @@Storageurs_key
     end

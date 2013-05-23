@@ -2,7 +2,6 @@
 
 require 'rubygems'
 require 'net/ldap'
-require 'logger'
 require 'common/globalvars'
 require 'search/ldap_search'
 require 'utils/general'

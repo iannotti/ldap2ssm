@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 require 'common/constants'
-require 'parse/write_xml_out'
 require 'utils/senddata'
+require 'common/globalvars'
+require 'parse/starparser'
 require 'time'
 require 'fileutils'
+require 'senddata/senddatatofaust'
 =begin
 
 puts SRecords.SubjectIdentity
@@ -81,9 +83,14 @@ files =File.dirname(__FILE__).to_s
 rindex = files.rindex(File::SEPARATOR)
 substr = files.slice(0,rindex)
 	puts "........... "+substr
-=end
+
 str = "/stringa:di_prova=ancora"
 if str[0] == ?/
 	str = str.slice(1,str.size)
 	end
 puts str.split(/\/|:|_|=/)
+=end
+
+senddata = SendDataToFaust.new
+
+senddata.cleanFiles

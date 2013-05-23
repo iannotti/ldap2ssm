@@ -47,19 +47,25 @@ class WriteXmlFile
     
     xmlFile.close
     
+    localOutputPath = $LOCAL_OUTPUT_PATH
+    if !localOutputPath.nil?
+      copyFiles
+    end
+      
+    
   end
   
   private
   
   def buildFileName
-    fileName = generateDir + generateFileName
+    fileName = generateDir($OUTPUT_PATH) + generateFileName
   end
   #
   # @TODO to generate a new directory if there are more than 100 files
   #
-  def generateDir
-    GeneralUtils.CheckDir($OUTPUT_PATH)
-    dirPath = $OUTPUT_PATH + File::SEPARATOR
+  def generateDir(path)
+    GeneralUtils.CheckDir(path)
+    dirPath = path + File::SEPARATOR
     
     
   end
@@ -75,4 +81,13 @@ class WriteXmlFile
     filename
 
   end
+  def copyFiles
+    path_out = generateDir($LOCAL_OUTPUT_PATH)
+    path_in = generateDir($OUTPUT_PATH)
+    Dir.foreach($OUTPUT_PATH) do |item|
+      next if item == '.' or item == '..'
+      FileUtils.copy_file(path_in + item, path_out + item)
+    end
+  end
+    
 end

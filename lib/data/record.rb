@@ -38,7 +38,7 @@ require "utils/general"
       @site = value
     end
     def recordId=(value)
-      @recordId = "#{value}" + "/sr/"+generateId
+      @recordId = "#{value}" + "/" + generateId
     end
     def storageSystem=(value)
        @storageSystem = value
