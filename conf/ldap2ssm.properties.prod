@@ -13,4 +13,5 @@ sitelist_file=glite-dgas-sumrecords2goc-sitelist-all.conf
 #sitelist_file=prova.conf
 #data dir directory
 input_data_path=/root/ldapstorage2ssm/data
-
+# set the local output path
+local_output_path=/root/ldapstorage2ssm/local/out

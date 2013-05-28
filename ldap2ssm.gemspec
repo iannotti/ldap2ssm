@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ldap2ssm/version'
 
 
@@ -22,7 +24,8 @@ Gem::Specification.new do |mygem|
    
   mygem.has_rdoc      = true
   
+  mygem.add_dependency "faustcommon"
   mygem.add_dependency "net-ldap"
-  mygem.add_dependency "builder"
+  mygem.add_dependency "builder","=3.0.0"
  
 end

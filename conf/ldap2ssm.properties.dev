@@ -8,6 +8,8 @@ max_files_per_dir=50
 #logfile=log/logfile.log
 ##output_path=/var/spool/apel/outgoing/ec7b2508
 output_path=out/ec7b2508
+# set the local output path
+local_output_path=local/out
 # path of the file containing list of active sites 
 sitelist_file=glite-dgas-sumrecords2goc-sitelist-all.conf
 #sitelist_file=prova.conf
