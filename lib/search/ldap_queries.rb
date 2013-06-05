@@ -4,6 +4,7 @@ require "ldap2ssm/version"
 require "common/constants"
 require "data/record"
 require "utils/general"
+require "utils/starsrrecord"
 require "utils/senddata"
 require "utils/timeutils"
 
